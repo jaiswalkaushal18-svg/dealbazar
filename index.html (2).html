@@ -1,0 +1,2270 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DealBazaar — India's Multi-Store Affiliate Shopping &amp; Deals Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.97) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .animate-modal-pop {
+            animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            45% { transform: scale(1.28); }
+            100% { transform: scale(1); }
+        }
+        .animate-heart-beat {
+            animation: heartBeat 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+    <!-- GLOBAL TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="fixed top-5 right-5 z-[100] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- ===================================================================== -->
+    <!-- 1. FULL-PAGE E-COMMERCE WEBSITE SIGN-IN SCREEN (#loginScreen)         -->
+    <!-- ===================================================================== -->
+    <div id="loginScreen" class="min-h-screen bg-slate-100 flex flex-col">
+        <!-- Minimal Website Sign-In Top Navbar -->
+        <header class="bg-white border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-amber-500 flex items-center justify-center text-white text-lg shadow-sm">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <div>
+                        <span class="font-display font-extrabold text-xl tracking-tight text-slate-900 block leading-none">
+                            Deal<span class="text-indigo-600">Bazaar</span>
+                        </span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mt-0.5">Official Deals Portal</span>
+                    </div>
+                </div>
+                <div class="hidden sm:flex items-center gap-4 text-xs font-semibold text-slate-500">
+                    <span class="flex items-center gap-1.5 text-emerald-600">
+                        <i class="fa-solid fa-shield-check"></i>
+                        <span>100% Secure OTP Sign-In</span>
+                    </span>
+                    <span class="text-slate-300">|</span>
+                    <span>Amazon • Flipkart • Ajio • Myntra • Meesho</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Website Sign-In Split Container (Flipkart / Myntra Web Style) -->
+        <main class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <div class="w-full max-w-5xl bg-white rounded-3xl shadow-xl border border-slate-200/90 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+                
+                <!-- Left Brand & Value Proposition Panel -->
+                <div class="lg:col-span-5 bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-900 text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-14 -bottom-14 w-56 h-56 rounded-full bg-indigo-500/20 blur-2xl pointer-events-none"></div>
+                    <div class="space-y-5 relative z-10">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-amber-300 text-xs font-bold">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>India's All-in-One Deal Hub</span>
+                        </span>
+                        <h1 class="font-display font-extrabold text-3xl sm:text-4xl leading-tight">
+                            Sign In to Unlock Verified Daily Discounts
+                        </h1>
+                        <p class="text-sm text-indigo-200 leading-relaxed">
+                            Compare live price drops across India's top 5 marketplaces, bookmark your favorite deals in your Wishlist, and shop directly on official stores.
+                        </p>
+
+                        <!-- Partner Store Pills -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-3 py-1.5 rounded-lg bg-amber-400 text-slate-950 text-xs font-extrabold">Amazon</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-bold">Flipkart</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-pink-600 text-white text-xs font-bold">Myntra</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-white text-xs font-bold">Ajio</span>
+                            <span class="px-3 py-1.5 rounded-lg bg-fuchsia-700 text-white text-xs font-bold">Meesho</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 mt-8 border-t border-white/10 space-y-2.5 text-xs text-indigo-200 relative z-10">
+                        <div class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                            <span>Direct official partner store checkout links</span>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                            <span>Sync your saved Wishlist &amp; deal price alerts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Website Login Form (Mobile Number OR Gmail) -->
+                <div class="lg:col-span-7 p-7 sm:p-10 lg:p-12 flex flex-col justify-center bg-white">
+                    
+                    <!-- STEP 1: MOBILE NUMBER OR GMAIL INPUTS -->
+                    <div id="loginStepCredentials" class="space-y-5">
+                        <div>
+                            <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900">Member Login</h2>
+                            <p class="text-sm text-slate-500 mt-1">Sign in using your <strong>Mobile Number</strong> or your <strong>Gmail Address</strong> to enter the store.</p>
+                        </div>
+
+                        <!-- Option A: Mobile Number + Send OTP -->
+                        <form onsubmit="handleSendMobileOtp(event)" class="space-y-3">
+                            <label for="loginPhoneInput" class="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                                1. Login with Mobile Number
+                            </label>
+                            <div class="flex flex-col sm:flex-row gap-2.5">
+                                <div class="flex-1 flex items-center rounded-xl border-2 border-slate-200 focus-within:border-indigo-600 bg-slate-50 focus-within:bg-white overflow-hidden transition">
+                                    <span class="px-3.5 py-3 text-sm font-extrabold text-slate-700 bg-slate-100 border-r border-slate-200 select-none shrink-0">
+                                        🇮🇳 +91
+                                    </span>
+                                    <input
+                                        type="tel"
+                                        id="loginPhoneInput"
+                                        inputmode="numeric"
+                                        maxlength="10"
+                                        required
+                                        placeholder="Enter 10-digit mobile number"
+                                        class="w-full px-3.5 py-3 text-sm font-bold text-slate-900 bg-transparent outline-none tracking-wide"
+                                    >
+                                </div>
+                                <button type="submit" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-display font-bold text-sm shadow-sm active:scale-[0.99] transition cursor-pointer shrink-0">
+                                    Send OTP
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Clear OR Divider -->
+                        <div class="relative flex items-center justify-center py-1">
+                            <div class="border-t border-slate-200 w-full"></div>
+                            <span class="bg-white px-4 text-xs font-extrabold uppercase tracking-widest text-slate-400 shrink-0">OR</span>
+                            <div class="border-t border-slate-200 w-full"></div>
+                        </div>
+
+                        <!-- Option B: Gmail Address + Send OTP -->
+                        <form onsubmit="handleSendGmailOtp(event)" class="space-y-3">
+                            <label for="loginGmailInput" class="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                                2. Login with Gmail Address
+                            </label>
+                            <div class="flex flex-col sm:flex-row gap-2.5">
+                                <div class="flex-1 flex items-center rounded-xl border-2 border-slate-200 focus-within:border-indigo-600 bg-slate-50 focus-within:bg-white overflow-hidden transition">
+                                    <span class="px-3.5 py-3 text-sm font-extrabold text-rose-600 bg-slate-100 border-r border-slate-200 select-none shrink-0">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </span>
+                                    <input
+                                        type="email"
+                                        id="loginGmailInput"
+                                        required
+                                        placeholder="yourname@gmail.com"
+                                        class="w-full px-3.5 py-3 text-sm font-bold text-slate-900 bg-transparent outline-none"
+                                    >
+                                </div>
+                                <button type="submit" class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-display font-bold text-sm shadow-sm active:scale-[0.99] transition cursor-pointer shrink-0">
+                                    Send OTP
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Optional One-Click Continue with Google -->
+                        <div class="pt-1">
+                            <button type="button" onclick="openGoogleAccountModal()" class="w-full py-3 px-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-800 font-display font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 transition cursor-pointer">
+                                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/>
+                                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.14C3.26 21.3 7.31 24 12 24Z"/>
+                                    <path fill="#FBBC05" d="M5.28 14.24c-.24-.72-.38-1.49-.38-2.24s.14-1.52.38-2.24V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.99-3.14Z"/>
+                                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.99 3.14c.95-2.85 3.6-4.96 6.72-4.96Z"/>
+                                </svg>
+                                <span>Quick Continue with Google Account</span>
+                            </button>
+                        </div>
+
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            By continuing, you agree to DealBazaar's Terms of Use and Affiliate Disclosure policy.
+                        </p>
+                    </div>
+
+                    <!-- STEP 2: 4-DIGIT OTP VERIFICATION -->
+                    <div id="loginStepOtp" class="hidden space-y-5">
+                        <!-- Simulated SMS / Gmail Inbox Alert Banner with One-Tap Auto-Fill -->
+                        <div class="p-4 rounded-2xl bg-amber-50 border border-amber-300 flex items-center justify-between gap-3">
+                            <div class="text-xs">
+                                <p class="font-extrabold text-amber-950 flex items-center gap-1.5">
+                                    <i id="otpAlertIcon" class="fa-solid fa-comment-sms text-amber-600"></i>
+                                    <span id="otpAlertTitle">DealBazaar Verification SMS</span>
+                                </p>
+                                <p class="text-amber-800 mt-0.5">
+                                    Your 4-digit OTP is <strong id="otpCodePreview" class="font-display text-base text-indigo-700 tracking-widest">0000</strong>
+                                </p>
+                            </div>
+                            <button type="button" onclick="autoFillOtpBoxes()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shrink-0 cursor-pointer transition shadow-xs">
+                                Auto-Fill
+                            </button>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <h2 class="font-display font-extrabold text-2xl text-slate-900">Verify 4-Digit OTP</h2>
+                                <button type="button" onclick="backToCredentialsStep()" id="changeCredentialBtn" class="text-xs font-bold text-indigo-600 hover:underline cursor-pointer">
+                                    Change Number / Gmail
+                                </button>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-1">
+                                Enter the verification code sent to <strong id="displayTargetContact" class="text-slate-900">+91 XXXXXXXXXX</strong>
+                            </p>
+                        </div>
+
+                        <form onsubmit="handleVerifyLoginOtp(event)" class="space-y-5">
+                            <div class="grid grid-cols-4 gap-3 max-w-sm" id="otpDigitBoxes">
+                                <input type="tel" inputmode="numeric" maxlength="1" class="otp-box w-full h-14 text-center font-display font-extrabold text-2xl rounded-xl border-2 border-slate-200 focus:border-indigo-600 bg-slate-50 focus:bg-white outline-none transition">
+                                <input type="tel" inputmode="numeric" maxlength="1" class="otp-box w-full h-14 text-center font-display font-extrabold text-2xl rounded-xl border-2 border-slate-200 focus:border-indigo-600 bg-slate-50 focus:bg-white outline-none transition">
+                                <input type="tel" inputmode="numeric" maxlength="1" class="otp-box w-full h-14 text-center font-display font-extrabold text-2xl rounded-xl border-2 border-slate-200 focus:border-indigo-600 bg-slate-50 focus:bg-white outline-none transition">
+                                <input type="tel" inputmode="numeric" maxlength="1" class="otp-box w-full h-14 text-center font-display font-extrabold text-2xl rounded-xl border-2 border-slate-200 focus:border-indigo-600 bg-slate-50 focus:bg-white outline-none transition">
+                            </div>
+
+                            <button type="submit" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold text-sm shadow-lg shadow-emerald-500/20 active:scale-[0.99] transition cursor-pointer flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>Verify &amp; Enter Store</span>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- GOOGLE ACCOUNT CHOOSER MODAL -->
+    <div id="googleAccountModal" onclick="if(event.target===this) closeGoogleAccountModal()" class="hidden fixed inset-0 z-[60] bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden animate-modal-pop">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/>
+                        <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.14C3.26 21.3 7.31 24 12 24Z"/>
+                        <path fill="#FBBC05" d="M5.28 14.24c-.24-.72-.38-1.49-.38-2.24s.14-1.52.38-2.24V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.99-3.14Z"/>
+                        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.99 3.14c.95-2.85 3.6-4.96 6.72-4.96Z"/>
+                    </svg>
+                    <h3 class="font-display font-extrabold text-base text-slate-900">Choose a Google Account</h3>
+                </div>
+                <button onclick="closeGoogleAccountModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+
+            <div class="p-5 space-y-2.5">
+                <p class="text-xs text-slate-500 px-1 mb-2">to continue to <strong class="text-slate-800">DealBazaar</strong></p>
+
+                <button type="button" onclick="completeGoogleQuickSignIn('Aarav Sharma', 'aarav.deals@gmail.com')" class="w-full p-3.5 rounded-2xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/40 flex items-center gap-3.5 text-left transition cursor-pointer">
+                    <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-display font-extrabold text-sm flex items-center justify-center shrink-0">A</div>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-sm font-bold text-slate-900 truncate">Aarav Sharma</p>
+                        <p class="text-xs text-slate-500 truncate">aarav.deals@gmail.com</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+
+                <button type="button" onclick="completeGoogleQuickSignIn('Priya Verma', 'priya.shopper@gmail.com')" class="w-full p-3.5 rounded-2xl border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/40 flex items-center gap-3.5 text-left transition cursor-pointer">
+                    <div class="w-10 h-10 rounded-full bg-rose-600 text-white font-display font-extrabold text-sm flex items-center justify-center shrink-0">P</div>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-sm font-bold text-slate-900 truncate">Priya Verma</p>
+                        <p class="text-xs text-slate-500 truncate">priya.shopper@gmail.com</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+
+                <div class="pt-3 border-t border-slate-100 mt-3">
+                    <form onsubmit="handleCustomGoogleAccountSubmit(event)" class="space-y-2.5">
+                        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400">Or Enter Any Gmail Address</label>
+                        <div class="flex gap-2">
+                            <input type="email" id="customGoogleEmailInput" required placeholder="yourname@gmail.com" class="flex-1 px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-indigo-600 text-xs font-semibold outline-none">
+                            <button type="submit" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shrink-0 cursor-pointer">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- 2. FULL-WIDTH RESPONSIVE E-COMMERCE WEBSITE SHELL (#mainWebsiteShell) -->
+    <!-- ===================================================================== -->
+    <div id="mainWebsiteShell" class="hidden min-h-screen flex flex-col">
+
+        <!-- TOP WEBSITE PROMO & TRUST BAR -->
+        <div class="bg-slate-950 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-4">
+                    <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>100% Genuine Official Partner Store Links</span>
+                    </span>
+                    <span class="hidden md:inline text-slate-700">|</span>
+                    <span class="hidden md:flex items-center gap-1.5">
+                        <i class="fa-solid fa-bolt text-amber-400"></i>
+                        <span>Live Multi-Store Price Comparison</span>
+                    </span>
+                </div>
+                <div class="flex items-center gap-3 text-[11px] font-semibold text-amber-300">
+                    <span>Amazon • Flipkart • Ajio • Myntra • Meesho</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- STICKY FULL-WIDTH WEBSITE HEADER -->
+        <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Primary Header Row -->
+                <div class="h-16 sm:h-20 flex items-center justify-between gap-4">
+                    <!-- Brand Logo -->
+                    <button onclick="navigateView('storefront'); resetAllFilters();" class="flex items-center gap-3 text-left shrink-0 cursor-pointer group">
+                        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-violet-600 to-amber-500 flex items-center justify-center text-white text-lg shadow-md group-hover:scale-105 transition">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </div>
+                        <div>
+                            <span class="font-display font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900 block leading-none">
+                                Deal<span class="text-indigo-600">Bazaar</span>
+                            </span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mt-0.5">Multi-Store Deals</span>
+                        </div>
+                    </button>
+
+                    <!-- Wide Center Search Bar (Desktop & Tablet) -->
+                    <div class="hidden md:block flex-1 max-w-2xl mx-4">
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                            <input
+                                type="text"
+                                id="desktopSearchInput"
+                                oninput="onSearchInput(this.value)"
+                                placeholder="Search products across Amazon, Flipkart, Ajio, Myntra & Meesho..."
+                                class="w-full pl-11 pr-10 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200/60 focus:bg-white border-2 border-transparent focus:border-indigo-600 text-sm outline-none transition"
+                            >
+                            <button id="desktopSearchClear" onclick="clearSearchInput()" class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 cursor-pointer">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Header Navigation: Deals, Wishlist, Account Dropdown -->
+                    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                        <button onclick="navigateView('storefront')" id="navBtnStorefront" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-bold text-indigo-600 bg-indigo-50 transition cursor-pointer">
+                            <i class="fa-solid fa-store"></i>
+                            <span>All Deals</span>
+                        </button>
+
+                        <button onclick="navigateView('wishlist')" id="navBtnWishlist" class="relative inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-rose-50 hover:text-rose-600 transition cursor-pointer">
+                            <i class="fa-solid fa-heart text-rose-500"></i>
+                            <span class="hidden sm:inline">Wishlist</span>
+                            <span id="headerWishlistCount" class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-[11px] font-extrabold">0</span>
+                        </button>
+
+                        <!-- Profile & Account Dropdown Wrapper -->
+                        <div class="relative" id="accountDropdownWrapper">
+                            <button type="button" onclick="toggleAccountDropdown()" id="navBtnProfile" class="inline-flex items-center gap-2.5 pl-2 pr-3.5 py-1.5 rounded-2xl border border-slate-200 hover:border-indigo-300 bg-white hover:bg-slate-50 transition cursor-pointer">
+                                <div id="headerAvatarCircle" class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white font-display font-extrabold text-xs flex items-center justify-center">
+                                    U
+                                </div>
+                                <div class="text-left hidden lg:block">
+                                    <span id="headerUserName" class="text-xs font-extrabold text-slate-900 block leading-none max-w-[120px] truncate">Deal Shopper</span>
+                                    <span class="text-[10px] font-semibold text-slate-400 block mt-0.5">Account &amp; Settings</span>
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+                            </button>
+
+                            <!-- Desktop / Mobile Header Account Dropdown Menu -->
+                            <div id="accountDropdownMenu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 z-50 animate-modal-pop">
+                                <div class="px-4 py-2.5 border-b border-slate-100">
+                                    <p id="dropdownUserName" class="text-xs font-extrabold text-slate-900 truncate">Deal Shopper</p>
+                                    <p id="dropdownUserContact" class="text-[11px] text-slate-500 truncate mt-0.5">+91 9876543210</p>
+                                </div>
+                                <button onclick="closeAccountDropdown(); navigateView('profile');" class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 cursor-pointer">
+                                    <i class="fa-solid fa-user-gear text-indigo-600 w-4"></i>
+                                    <span>Profile &amp; Settings</span>
+                                </button>
+                                <button onclick="closeAccountDropdown(); navigateView('wishlist');" class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 cursor-pointer">
+                                    <i class="fa-solid fa-heart text-rose-500 w-4"></i>
+                                    <span>My Saved Wishlist</span>
+                                </button>
+                                <button onclick="closeAccountDropdown(); openOwnerManagerModal();" class="w-full px-4 py-2.5 text-left text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center gap-2.5 cursor-pointer">
+                                    <i class="fa-solid fa-lock text-amber-600 w-4"></i>
+                                    <span>Owner Store Manager</span>
+                                </button>
+                                <div class="border-t border-slate-100 mt-1 pt-1">
+                                    <button onclick="closeAccountDropdown(); handleUserLogout();" class="w-full px-4 py-2.5 text-left text-xs font-extrabold text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 cursor-pointer">
+                                        <i class="fa-solid fa-right-from-bracket w-4"></i>
+                                        <span>Logout</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Search Bar -->
+                <div class="md:hidden pb-3">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input
+                            type="text"
+                            id="mobileSearchInput"
+                            oninput="onSearchInput(this.value)"
+                            placeholder="Search earbuds, watches, sneakers, kurtis..."
+                            class="w-full pl-9 pr-9 py-2.5 rounded-xl bg-slate-100 focus:bg-white border border-transparent focus:border-indigo-600 text-xs outline-none transition"
+                        >
+                        <button id="mobileSearchClear" onclick="clearSearchInput()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 cursor-pointer">
+                            <i class="fa-solid fa-circle-xmark text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Horizontal Store & Category Mega-Strip -->
+                <nav class="flex items-center justify-between gap-4 overflow-x-auto no-scrollbar py-2.5 border-t border-slate-100">
+                    <div class="flex items-center gap-2 shrink-0" id="headerStoreLinks">
+                        <!-- Rendered dynamically -->
+                    </div>
+                    <div class="hidden lg:flex items-center gap-1.5 shrink-0 border-l border-slate-200 pl-4" id="headerCategoryLinks">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- ================================================================= -->
+        <!-- MAIN WEBSITE CONTENT AREA                                         -->
+        <!-- ================================================================= -->
+        <main class="flex-1">
+
+            <!-- ============================================================= -->
+            <!-- VIEW 1: FULL-WIDTH STOREFRONT HOME                            -->
+            <!-- ============================================================= -->
+            <div id="viewStorefront" class="space-y-8 pb-16">
+                
+                <!-- Full-Width Hero Promotional Banner Grid -->
+                <section class="bg-gradient-to-r from-slate-950 via-indigo-950 to-violet-950 text-white border-b border-slate-800">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            <!-- Left Hero Copy & Store Cards -->
+                            <div class="lg:col-span-7 space-y-5">
+                                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-bold text-amber-300">
+                                    <i class="fa-solid fa-fire"></i>
+                                    <span>HANDPICKED DAILY DISCOUNTS • UPDATED LIVE</span>
+                                </div>
+                                <h1 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight">
+                                    Compare &amp; Save Across <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-pink-300 to-sky-300">India's Top 5 Shopping Sites</span>
+                                </h1>
+                                <p class="text-sm sm:text-base text-indigo-200 max-w-2xl leading-relaxed">
+                                    Browse verified deals across Amazon, Flipkart, Ajio, Myntra, and Meesho. Click any product to shop directly on the official partner store.
+                                </p>
+
+                                <!-- Quick Store Filter Cards -->
+                                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-2" id="heroStoreCards">
+                                    <!-- Rendered dynamically -->
+                                </div>
+                            </div>
+
+                            <!-- Right Spotlight Deal of the Day Card -->
+                            <div class="lg:col-span-5" id="heroSpotlightCard">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Filter, Category Tabs & Sort Toolbar -->
+                <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <!-- Category Pills -->
+                        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar" id="categoryFilterBar">
+                            <!-- Rendered dynamically -->
+                        </div>
+
+                        <!-- Results Count & Sort Dropdown -->
+                        <div class="flex items-center justify-between md:justify-end gap-3 shrink-0">
+                            <span id="storefrontResultsCount" class="text-xs font-bold text-slate-500">Showing 12 deals</span>
+                            <select id="sortSelect" onchange="onSortChange(this.value)" class="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-800 outline-none focus:border-indigo-600 cursor-pointer">
+                                <option value="featured">Sort: Featured Deals</option>
+                                <option value="discount">Sort: Highest % Discount</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Section Title -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 id="storefrontSectionTitle" class="font-display font-extrabold text-xl sm:text-2xl text-slate-900">
+                                Trending Deals Across All Stores
+                            </h2>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Click any product card for full details or proceed directly to the official store</p>
+                        </div>
+                        <button id="clearFiltersBtn" onclick="resetAllFilters()" class="hidden px-4 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold cursor-pointer transition">
+                            Reset Filters
+                        </button>
+                    </div>
+
+                    <!-- 4-Column Desktop / 3-Column Tablet / 2-Column Mobile Product Grid -->
+                    <div id="storefrontProductGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                        <!-- Rendered dynamically -->
+                    </div>
+
+                    <!-- Empty Filter State -->
+                    <div id="storefrontEmptyState" class="hidden bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-lg mx-auto">
+                        <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <h3 class="font-display font-extrabold text-lg text-slate-900">No Matching Deals Found</h3>
+                        <p class="text-sm text-slate-500 mt-1 mb-5">Try clearing your search keyword or switching back to All Stores.</p>
+                        <button onclick="resetAllFilters()" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer transition">
+                            Show All Deals
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ============================================================= -->
+            <!-- VIEW 2: DEDICATED WISHLIST PAGE                               -->
+            <!-- ============================================================= -->
+            <div id="viewWishlist" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-6">
+                <div class="bg-white rounded-3xl border border-slate-200 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+                    <div>
+                        <button onclick="navigateView('storefront')" class="text-xs font-bold text-indigo-600 hover:underline mb-2 inline-flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Back to All Deals</span>
+                        </button>
+                        <h1 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900">My Saved Wishlist ❤️</h1>
+                        <p id="wishlistPageSubtitle" class="text-sm text-slate-500 mt-0.5">0 deals saved for later</p>
+                    </div>
+                    <button id="wishlistPageClearBtn" onclick="clearAllWishlist()" class="hidden px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold cursor-pointer transition self-start sm:self-auto">
+                        <i class="fa-solid fa-trash-can mr-1.5"></i>Clear Saved Wishlist
+                    </button>
+                </div>
+
+                <!-- 4-Column Wishlist Grid -->
+                <div id="wishlistProductGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <!-- Rendered dynamically -->
+                </div>
+
+                <!-- Empty Wishlist State -->
+                <div id="wishlistEmptyState" class="bg-white rounded-3xl border border-slate-200 p-14 text-center max-w-lg mx-auto">
+                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center text-2xl">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                    <h2 class="font-display font-extrabold text-xl text-slate-900">Your Wishlist is Empty</h2>
+                    <p class="text-sm text-slate-500 mt-1.5 mb-6">Click the heart icon on any product card to save your favorite deals here.</p>
+                    <button onclick="navigateView('storefront')" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer transition">
+                        Explore Today's Deals
+                    </button>
+                </div>
+            </div>
+
+            <!-- ============================================================= -->
+            <!-- VIEW 3: PROFILE & SETTINGS PAGE                               -->
+            <!-- ============================================================= -->
+            <div id="viewProfile" class="hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-6">
+                <button onclick="navigateView('storefront')" class="text-xs font-bold text-indigo-600 hover:underline inline-flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Back to Storefront</span>
+                </button>
+
+                <!-- Profile Overview Header Card -->
+                <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div class="flex items-center gap-4 sm:gap-5">
+                        <div id="profilePageAvatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 text-white font-display font-extrabold text-2xl sm:text-3xl flex items-center justify-center shadow-lg shrink-0">
+                            U
+                        </div>
+                        <div>
+                            <span id="profileVerifiedBadge" class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-extrabold">✓ Verified Mobile Account</span>
+                            <h1 id="profilePageName" class="font-display font-extrabold text-2xl text-slate-900 mt-1.5">Deal Shopper</h1>
+                            <p id="profilePageContact" class="text-sm font-semibold text-slate-500">+91 9876543210</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 sm:w-64">
+                        <button onclick="navigateView('wishlist')" class="p-4 rounded-2xl bg-rose-50/80 border border-rose-100 text-left hover:bg-rose-100/70 transition cursor-pointer">
+                            <span id="profilePageWishlistCount" class="font-display font-extrabold text-2xl text-rose-600 block">0</span>
+                            <span class="text-xs font-bold text-slate-700">Saved Deals →</span>
+                        </button>
+                        <div class="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-100">
+                            <span class="font-display font-extrabold text-2xl text-indigo-600 block">5</span>
+                            <span class="text-xs font-bold text-slate-700">Active Stores</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clean Settings Panel -->
+                <div class="space-y-2.5">
+                    <h2 class="px-1 text-xs font-extrabold uppercase tracking-wider text-slate-400">Account &amp; Store Settings</h2>
+                    <div class="bg-white rounded-3xl border border-slate-200 divide-y divide-slate-100 overflow-hidden shadow-xs">
+                        
+                        <!-- 1. Edit Profile Name -->
+                        <button onclick="openEditNameModal()" class="w-full px-6 py-4.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-base">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-bold text-slate-900">Edit Profile Name</p>
+                                    <p class="text-xs text-slate-500">Update your display name on DealBazaar</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                        </button>
+
+                        <!-- 2. Deal Price-Drop Alerts Toggle -->
+                        <div class="w-full px-6 py-4.5 flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-base">
+                                    <i class="fa-solid fa-bell"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-bold text-slate-900">Deal Price-Drop Alerts</p>
+                                    <p class="text-xs text-slate-500">Receive instant notifications on flash discounts</p>
+                                </div>
+                            </div>
+                            <button type="button" id="alertsToggleBtn" onclick="toggleDealAlerts()" role="switch" aria-checked="true" class="relative inline-flex h-7 w-12 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-emerald-500 transition-colors duration-200 ease-in-out">
+                                <span id="alertsToggleKnob" class="pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow-sm transition duration-200 ease-in-out translate-x-5"></span>
+                            </button>
+                        </div>
+
+                        <!-- 3. Clear Saved Wishlist -->
+                        <button onclick="clearAllWishlist()" class="w-full px-6 py-4.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-2xl bg-pink-50 text-pink-600 flex items-center justify-center text-base">
+                                    <i class="fa-solid fa-heart-crack"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-bold text-slate-900">Clear Saved Wishlist</p>
+                                    <p class="text-xs text-slate-500">Remove all saved items from your wishlist</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                        </button>
+
+                        <!-- 4. Owner Store Manager (PIN-Protected) -->
+                        <button onclick="openOwnerManagerModal()" class="w-full px-6 py-4.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center text-base">
+                                    <i class="fa-solid fa-lock"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-bold text-slate-900">Owner Store Manager</p>
+                                    <p class="text-xs text-slate-500">Add/edit affiliate links, upload product photos &amp; export site</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-xl bg-slate-100 text-slate-700 text-xs font-extrabold">PIN Protected</span>
+                        </button>
+
+                        <!-- 5. Prominent Logout Row inside Settings -->
+                        <button onclick="handleUserLogout()" class="w-full px-6 py-4.5 flex items-center justify-between bg-rose-50/50 hover:bg-rose-50 transition cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-base">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-extrabold text-rose-600">Logout</p>
+                                    <p class="text-xs text-rose-500">Sign out of your session and return to the Website Login screen</p>
+                                </div>
+                            </div>
+                            <span class="px-3.5 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-bold">Sign Out</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- ================================================================= -->
+        <!-- MULTI-COLUMN E-COMMERCE WEBSITE FOOTER WITH AFFILIATE DISCLOSURE  -->
+        <!-- ================================================================= -->
+        <footer class="bg-slate-950 text-slate-400 border-t border-slate-800 mt-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
+                    <!-- Col 1: Brand -->
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2.5 text-white">
+                            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-amber-500 flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                            </div>
+                            <span class="font-display font-extrabold text-xl">DealBazaar</span>
+                        </div>
+                        <p class="text-xs leading-relaxed text-slate-400">
+                            Your unified destination for comparing verified discounts and flash deals across India's most trusted online marketplaces.
+                        </p>
+                    </div>
+
+                    <!-- Col 2: Partner Stores -->
+                    <div>
+                        <h3 class="font-display font-bold text-sm text-white mb-3">Partner Stores</h3>
+                        <ul class="space-y-2 text-xs">
+                            <li><button onclick="navigateView('storefront'); setStoreFilter('Amazon');" class="hover:text-amber-400 transition cursor-pointer">Amazon India Deals</button></li>
+                            <li><button onclick="navigateView('storefront'); setStoreFilter('Flipkart');" class="hover:text-sky-400 transition cursor-pointer">Flipkart Big Savings</button></li>
+                            <li><button onclick="navigateView('storefront'); setStoreFilter('Myntra');" class="hover:text-pink-400 transition cursor-pointer">Myntra Fashion Offers</button></li>
+                            <li><button onclick="navigateView('storefront'); setStoreFilter('Ajio');" class="hover:text-white transition cursor-pointer">Ajio Brand Store</button></li>
+                            <li><button onclick="navigateView('storefront'); setStoreFilter('Meesho');" class="hover:text-fuchsia-400 transition cursor-pointer">Meesho Budget Finds</button></li>
+                        </ul>
+                    </div>
+
+                    <!-- Col 3: Categories -->
+                    <div>
+                        <h3 class="font-display font-bold text-sm text-white mb-3">Top Categories</h3>
+                        <ul class="space-y-2 text-xs">
+                            <li><button onclick="navigateView('storefront'); setCategoryFilter('Electronics');" class="hover:text-white transition cursor-pointer">Electronics &amp; Audio</button></li>
+                            <li><button onclick="navigateView('storefront'); setCategoryFilter('Fashion');" class="hover:text-white transition cursor-pointer">Men &amp; Women Fashion</button></li>
+                            <li><button onclick="navigateView('storefront'); setCategoryFilter('Beauty');" class="hover:text-white transition cursor-pointer">Skincare &amp; Beauty</button></li>
+                            <li><button onclick="navigateView('storefront'); setCategoryFilter('Home');" class="hover:text-white transition cursor-pointer">Home &amp; Decor</button></li>
+                        </ul>
+                    </div>
+
+                    <!-- Col 4: Quick Account -->
+                    <div>
+                        <h3 class="font-display font-bold text-sm text-white mb-3">Account &amp; Tools</h3>
+                        <ul class="space-y-2 text-xs">
+                            <li><button onclick="navigateView('wishlist')" class="hover:text-white transition cursor-pointer">My Saved Wishlist</button></li>
+                            <li><button onclick="navigateView('profile')" class="hover:text-white transition cursor-pointer">Profile &amp; Settings</button></li>
+                            <li><button onclick="openOwnerManagerModal()" class="hover:text-amber-300 transition cursor-pointer">Owner Store Manager (PIN)</button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Affiliate Disclosure -->
+                <div class="pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[11px] text-slate-500">
+                    <p class="max-w-3xl leading-relaxed">
+                        <strong class="text-slate-300">Affiliate Disclosure:</strong> DealBazaar participates in affiliate marketing programs with Amazon Associates, Flipkart Affiliate, Myntra, Ajio, and Meesho. When you click on product links and make a purchase, we may earn a small commission at zero additional cost to you.
+                    </p>
+                    <p class="shrink-0">© 2026 DealBazaar. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 1: PRODUCT QUICK-VIEW MODAL                                     -->
+    <!-- ===================================================================== -->
+    <div id="productQuickViewModal" onclick="if(event.target===this) closeQuickViewModal()" class="hidden fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden animate-modal-pop" id="quickViewContent">
+            <!-- Rendered dynamically -->
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 2: EDIT PROFILE NAME MODAL                                      -->
+    <!-- ===================================================================== -->
+    <div id="editNameModal" onclick="if(event.target===this) closeEditNameModal()" class="hidden fixed inset-0 z-50 bg-slate-950/65 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl space-y-4 animate-modal-pop">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-extrabold text-lg text-slate-900">Edit Display Name</h3>
+                <button onclick="closeEditNameModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+            <form onsubmit="saveNewDisplayName(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1.5">Your Name</label>
+                    <input type="text" id="editNameInput" required maxlength="32" placeholder="Enter your display name" class="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-indigo-600 text-sm font-semibold outline-none">
+                </div>
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="closeEditNameModal()" class="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 cursor-pointer">Cancel</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 3: OWNER-ONLY PIN-PROTECTED STORE MANAGER MODAL                 -->
+    <!-- ===================================================================== -->
+    <div id="ownerManagerModal" onclick="if(event.target===this) closeOwnerManagerModal()" class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+        <div class="w-full max-w-3xl bg-slate-50 rounded-3xl shadow-2xl overflow-hidden my-auto animate-modal-pop">
+            
+            <!-- PIN GATE -->
+            <div id="ownerPinGateView" class="bg-white p-8 sm:p-10 text-center space-y-5 relative">
+                <button onclick="closeOwnerManagerModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center text-2xl shadow-lg">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h3 class="font-display font-extrabold text-2xl text-slate-900">Owner Store Manager</h3>
+                    <p class="text-sm text-slate-500 mt-1">Enter your Owner PIN to manage affiliate links, product images &amp; store analytics.</p>
+                </div>
+                <form onsubmit="unlockOwnerManager(event)" class="max-w-xs mx-auto space-y-4">
+                    <input type="password" id="ownerPinInput" inputmode="numeric" maxlength="8" required placeholder="••••" class="w-full text-center tracking-[0.5em] font-display font-extrabold text-2xl py-3.5 rounded-2xl border-2 border-slate-200 focus:border-indigo-600 outline-none">
+                    <button type="submit" class="w-full py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md cursor-pointer transition">
+                        Unlock Store Manager
+                    </button>
+                </form>
+                <p class="text-xs text-slate-400">Default Owner PIN: <strong class="text-slate-700">1234</strong></p>
+            </div>
+
+            <!-- UNLOCKED ADMIN DASHBOARD -->
+            <div id="ownerUnlockedView" class="hidden flex flex-col max-h-[88vh]">
+                <!-- Top Admin Bar -->
+                <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between shrink-0">
+                    <div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400">● Owner Authenticated</span>
+                        <h3 class="font-display font-extrabold text-lg">DealBazaar Affiliate Manager</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="lockOwnerManager()" class="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold cursor-pointer">
+                            <i class="fa-solid fa-lock mr-1"></i>Lock
+                        </button>
+                        <button onclick="closeOwnerManagerModal()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center cursor-pointer">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sub-Navigation Tabs -->
+                <div class="bg-white border-b border-slate-200 px-6 py-3 flex flex-wrap items-center gap-2 shrink-0">
+                    <button id="adminTabBtnAdd" onclick="switchAdminSubTab('add')" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold cursor-pointer">
+                        + Add / Edit Product
+                    </button>
+                    <button id="adminTabBtnManage" onclick="switchAdminSubTab('manage')" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-bold cursor-pointer">
+                        Manage Catalog (<span id="adminTotalProductsCount">12</span>)
+                    </button>
+                    <button id="adminTabBtnAnalytics" onclick="switchAdminSubTab('analytics')" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-bold cursor-pointer">
+                        Click Analytics
+                    </button>
+                    <button id="adminTabBtnExport" onclick="switchAdminSubTab('export')" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-bold cursor-pointer">
+                        PIN &amp; Export Website
+                    </button>
+                </div>
+
+                <!-- Admin Scrollable Body -->
+                <div class="p-6 overflow-y-auto space-y-5">
+                    
+                    <!-- SUB-TAB 1: ADD / EDIT PRODUCT WITH DIRECT FILE UPLOAD -->
+                    <div id="adminSubViewAdd" class="bg-white rounded-2xl border border-slate-200 p-5">
+                        <form id="productEditorForm" onsubmit="saveAffiliateProduct(event)" class="space-y-4">
+                            <input type="hidden" id="formProductId" value="">
+                            <input type="hidden" id="formImageBase64" value="">
+
+                            <!-- Direct File Image Upload -->
+                            <div class="p-4 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 flex flex-col sm:flex-row items-center gap-4">
+                                <div class="w-24 h-24 rounded-2xl bg-white border border-slate-200 overflow-hidden flex items-center justify-center shrink-0 shadow-xs">
+                                    <img id="formImagePreview" src="" alt="Preview" class="hidden w-full h-full object-cover">
+                                    <i id="formImagePlaceholder" class="fa-solid fa-image text-slate-400 text-2xl"></i>
+                                </div>
+                                <div class="text-center sm:text-left space-y-1.5">
+                                    <input type="file" id="formImageFileInput" accept="image/*" onchange="processSelectedImageFile(event)" class="hidden">
+                                    <label for="formImageFileInput" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer transition">
+                                        <i class="fa-solid fa-upload"></i>
+                                        <span id="formUploadBtnLabel">Choose Product Image File</span>
+                                    </label>
+                                    <p class="text-xs text-slate-500">Upload directly from your computer or phone gallery (auto-optimized for fast loading).</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Product Title *</label>
+                                    <input type="text" id="formTitle" required placeholder="e.g., boAt Nirvana Ion ANC Wireless Earbuds" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:border-indigo-600">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Partner Store *</label>
+                                    <select id="formStore" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm outline-none focus:border-indigo-600">
+                                        <option value="Amazon">Amazon</option>
+                                        <option value="Flipkart">Flipkart</option>
+                                        <option value="Myntra">Myntra</option>
+                                        <option value="Ajio">Ajio</option>
+                                        <option value="Meesho">Meesho</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Category *</label>
+                                    <select id="formCategory" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm outline-none focus:border-indigo-600">
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Fashion">Fashion</option>
+                                        <option value="Beauty">Beauty</option>
+                                        <option value="Home">Home</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Offer Price (₹) *</label>
+                                    <input type="number" id="formPrice" required min="1" placeholder="1499" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:border-indigo-600">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Original MRP (₹) *</label>
+                                    <input type="number" id="formMrp" required min="1" placeholder="3999" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:border-indigo-600">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Rating (1.0 - 5.0)</label>
+                                    <input type="number" id="formRating" step="0.1" min="1" max="5" value="4.5" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm outline-none focus:border-indigo-600">
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Highlight Badge</label>
+                                    <select id="formBadge" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm outline-none focus:border-indigo-600">
+                                        <option value="Hot Deal">Hot Deal</option>
+                                        <option value="Best Seller">Best Seller</option>
+                                        <option value="Trending">Trending</option>
+                                        <option value="">None</option>
+                                    </select>
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Your Affiliate Link URL *</label>
+                                    <input type="url" id="formAffiliateUrl" required placeholder="https://amzn.to/... or https://fkrt.it/..." class="w-full px-3.5 py-2.5 rounded-xl border border-indigo-300 bg-indigo-50/40 text-sm outline-none focus:border-indigo-600">
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-end gap-3 pt-2">
+                                <button type="button" onclick="resetAdminProductForm()" class="px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold text-slate-700 cursor-pointer">
+                                    Clear Form
+                                </button>
+                                <button type="submit" id="formSubmitBtn" class="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer">
+                                    Publish Deal to Website
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- SUB-TAB 2: MANAGE PRODUCTS -->
+                    <div id="adminSubViewManage" class="hidden space-y-3">
+                        <div id="adminCatalogList" class="space-y-2.5"></div>
+                    </div>
+
+                    <!-- SUB-TAB 3: STORE-WISE CLICK ANALYTICS -->
+                    <div id="adminSubViewAnalytics" class="hidden space-y-4">
+                        <div class="bg-white rounded-2xl border border-slate-200 p-5">
+                            <h4 class="font-display font-extrabold text-base text-slate-900 mb-1">Affiliate Outbound Click Analytics</h4>
+                            <p class="text-xs text-slate-500 mb-4">Track how many shoppers clicked your affiliate links across each store.</p>
+                            <div id="storeAnalyticsGrid" class="grid grid-cols-2 sm:grid-cols-5 gap-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- SUB-TAB 4: CHANGE PIN & DOWNLOAD UPDATED WEBSITE -->
+                    <div id="adminSubViewExport" class="hidden space-y-4">
+                        <div class="bg-gradient-to-br from-indigo-600 to-violet-700 text-white rounded-2xl p-6 space-y-3">
+                            <h4 class="font-display font-extrabold text-lg">Download Updated Website (index.html)</h4>
+                            <p class="text-xs text-indigo-100 leading-relaxed">
+                                Export all your newly added products, uploaded images, and affiliate links directly into a standalone <code class="bg-white/20 px-1.5 py-0.5 rounded">index.html</code> file ready for Netlify Drop or any web host.
+                            </p>
+                            <button onclick="downloadUpdatedWebsite()" class="px-5 py-3 rounded-xl bg-white text-indigo-700 hover:bg-indigo-50 font-bold text-xs cursor-pointer inline-flex items-center gap-2 shadow-md">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Download Updated Website (index.html)</span>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 space-y-3">
+                                <h4 class="font-display font-bold text-sm text-slate-900">Change Owner PIN</h4>
+                                <form onsubmit="changeOwnerPin(event)" class="space-y-3">
+                                    <input type="password" id="newOwnerPinInput" inputmode="numeric" minlength="4" maxlength="8" required placeholder="New PIN (4-8 digits)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs outline-none">
+                                    <button type="submit" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold cursor-pointer">
+                                        Update PIN
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col justify-between space-y-3">
+                                <div>
+                                    <h4 class="font-display font-bold text-sm text-slate-900">Restore Demo Catalog</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Reset products back to the 12 default Indian e-commerce demo deals.</p>
+                                </div>
+                                <button onclick="restoreDemoProducts()" class="w-full py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 text-xs font-bold cursor-pointer">
+                                    Reset 12 Demo Products
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- WEBSITE JAVASCRIPT LOGIC                                              -->
+    <!-- ===================================================================== -->
+    <script>
+        // =========================================================================
+        // 1. STORE & CATEGORY CONFIGURATION
+        // =========================================================================
+        const STORE_CONFIG = {
+            'All': { label: 'All Stores', dot: 'bg-indigo-500', badge: 'bg-slate-900 text-white', btn: 'bg-indigo-600 hover:bg-indigo-700 text-white', cardAccent: 'from-indigo-500/20 to-violet-500/20 border-indigo-400/30' },
+            'Amazon': { label: 'Amazon', dot: 'bg-amber-400', badge: 'bg-amber-400 text-slate-950 font-extrabold', btn: 'bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold', cardAccent: 'from-amber-400/20 to-orange-500/20 border-amber-400/30' },
+            'Flipkart': { label: 'Flipkart', dot: 'bg-sky-400', badge: 'bg-blue-600 text-white font-bold', btn: 'bg-blue-600 hover:bg-blue-700 text-white font-bold', cardAccent: 'from-blue-500/20 to-sky-500/20 border-sky-400/30' },
+            'Ajio': { label: 'Ajio', dot: 'bg-slate-300', badge: 'bg-slate-900 text-white font-bold', btn: 'bg-slate-900 hover:bg-slate-800 text-white font-bold', cardAccent: 'from-slate-400/20 to-slate-600/20 border-slate-400/30' },
+            'Myntra': { label: 'Myntra', dot: 'bg-pink-400', badge: 'bg-pink-600 text-white font-bold', btn: 'bg-pink-600 hover:bg-pink-700 text-white font-bold', cardAccent: 'from-pink-500/20 to-rose-500/20 border-pink-400/30' },
+            'Meesho': { label: 'Meesho', dot: 'bg-fuchsia-400', badge: 'bg-fuchsia-700 text-white font-bold', btn: 'bg-fuchsia-700 hover:bg-fuchsia-800 text-white font-bold', cardAccent: 'from-fuchsia-500/20 to-purple-500/20 border-fuchsia-400/30' }
+        };
+
+        const CATEGORIES = ['All', 'Electronics', 'Fashion', 'Beauty', 'Home'];
+
+        // =========================================================================
+        // 2. BUILT-IN SVG PRODUCT ILLUSTRATIONS & 12 DEMO INDIAN PRODUCTS
+        // =========================================================================
+        function buildProductSvg(label, c1, c2, shape) {
+            const shapes = {
+                earbuds: `<circle cx="155" cy="140" r="32" fill="#fff"/><rect x="146" y="160" width="18" height="55" rx="9" fill="#fff"/><circle cx="245" cy="140" r="32" fill="#fff"/><rect x="236" y="160" width="18" height="55" rx="9" fill="#fff"/>`,
+                watch: `<rect x="174" y="72" width="52" height="166" rx="14" fill="#0f172a"/><rect x="152" y="106" width="96" height="98" rx="24" fill="#fff"/><rect x="160" y="114" width="80" height="82" rx="18" fill="${c1}"/><text x="200" y="161" font-family="sans-serif" font-size="20" font-weight="800" fill="#fff" text-anchor="middle">10:09</text>`,
+                shoe: `<path d="M95 190 Q145 120 205 148 Q255 170 310 175 L315 205 Q200 218 90 205 Z" fill="#fff"/><path d="M135 162 L185 175 M155 148 L202 162" stroke="${c1}" stroke-width="6" stroke-linecap="round"/>`,
+                shirt: `<path d="M140 95 L175 82 Q200 98 225 82 L260 95 L295 135 L268 158 L248 138 L248 225 L152 225 L152 138 L132 158 L105 135 Z" fill="#fff"/>`,
+                kurti: `<path d="M165 82 L235 82 L255 135 L235 145 L268 232 L132 232 L165 145 L145 135 Z" fill="#fff"/><path d="M180 82 L200 112 L220 82" fill="none" stroke="${c1}" stroke-width="5"/>`,
+                headphones: `<path d="M130 165 A70 70 0 0 1 270 165" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round"/><rect x="114" y="150" width="30" height="58" rx="14" fill="#fff"/><rect x="256" y="150" width="30" height="58" rx="14" fill="#fff"/>`,
+                bag: `<path d="M168 125 A32 32 0 0 1 232 125" fill="none" stroke="#fff" stroke-width="8"/><rect x="135" y="125" width="130" height="100" rx="18" fill="#fff"/><circle cx="200" cy="170" r="10" fill="${c1}"/>`,
+                serum: `<rect x="172" y="122" width="56" height="105" rx="12" fill="#fff"/><rect x="184" y="96" width="32" height="26" rx="4" fill="#e2e8f0"/><rect x="193" y="76" width="14" height="22" rx="7" fill="#fff"/>`,
+                lamp: `<polygon points="150,155 250,155 230,95 170,95" fill="#fff"/><rect x="194" y="155" width="12" height="62" fill="#fff"/><rect x="165" y="215" width="70" height="12" rx="6" fill="#fff"/>`
+            };
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">
+                <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs>
+                <rect width="400" height="320" fill="url(#bg)"/>
+                <circle cx="340" cy="50" r="70" fill="#fff" opacity="0.1"/>
+                ${shapes[shape] || shapes.watch}
+                <text x="200" y="285" font-family="sans-serif" font-size="14" font-weight="800" fill="#fff" text-anchor="middle" letter-spacing="1">${label.toUpperCase()}</text>
+            </svg>`;
+            return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        }
+
+        // BAKED_PRODUCTS_START
+        const EMBEDDED_OWNER_PIN = null;
+        const DEFAULT_PRODUCTS = [
+            {
+                id: 'p-1',
+                title: 'boAt Nirvana Ion ANC Wireless Earbuds (120H Playback)',
+                store: 'Amazon',
+                category: 'Electronics',
+                price: 1799,
+                mrp: 7990,
+                rating: 4.4,
+                badge: 'Hot Deal',
+                image: buildProductSvg('boAt Nirvana ANC', '#f59e0b', '#b45309', 'earbuds'),
+                affiliateUrl: 'https://www.amazon.in/s?k=boat+nirvana+ion+anc'
+            },
+            {
+                id: 'p-2',
+                title: 'Noise ColorFit Pro 5 Max 1.96" AMOLED Smart Watch',
+                store: 'Flipkart',
+                category: 'Electronics',
+                price: 1999,
+                mrp: 5999,
+                rating: 4.3,
+                badge: 'Best Seller',
+                image: buildProductSvg('Noise AMOLED Watch', '#2563eb', '#1e40af', 'watch'),
+                affiliateUrl: 'https://www.flipkart.com/search?q=noise+colorfit+pro+5'
+            },
+            {
+                id: 'p-3',
+                title: 'HRX by Hrithik Roshan Men Ultralight Running Sneakers',
+                store: 'Myntra',
+                category: 'Fashion',
+                price: 1139,
+                mrp: 3799,
+                rating: 4.5,
+                badge: 'Hot Deal',
+                image: buildProductSvg('HRX Running Shoes', '#db2777', '#9d174d', 'shoe'),
+                affiliateUrl: 'https://www.myntra.com/hrx-shoes'
+            },
+            {
+                id: 'p-4',
+                title: 'US Polo Assn. Men Slim Fit Pure Cotton Casual Shirt',
+                store: 'Ajio',
+                category: 'Fashion',
+                price: 899,
+                mrp: 2499,
+                rating: 4.4,
+                badge: 'Trending',
+                image: buildProductSvg('US Polo Cotton Shirt', '#334155', '#0f172a', 'shirt'),
+                affiliateUrl: 'https://www.ajio.com/s/us-polo-assn-shirts'
+            },
+            {
+                id: 'p-5',
+                title: 'Women Designer Rayon Anarkali Kurti & Dupatta Set',
+                store: 'Meesho',
+                category: 'Fashion',
+                price: 389,
+                mrp: 1599,
+                rating: 4.2,
+                badge: 'Best Seller',
+                image: buildProductSvg('Anarkali Kurti Set', '#a21caf', '#701a75', 'kurti'),
+                affiliateUrl: 'https://www.meesho.com/search?q=anarkali%20kurti%20set'
+            },
+            {
+                id: 'p-6',
+                title: 'Sony WH-CH720N Wireless Noise Cancelling Headphones',
+                store: 'Amazon',
+                category: 'Electronics',
+                price: 7990,
+                mrp: 14990,
+                rating: 4.6,
+                badge: 'Best Seller',
+                image: buildProductSvg('Sony ANC Headphones', '#d97706', '#78350f', 'headphones'),
+                affiliateUrl: 'https://www.amazon.in/s?k=sony+wh-ch720n'
+            },
+            {
+                id: 'p-7',
+                title: 'Puma Men Smashic Classic White & Navy Court Sneakers',
+                store: 'Flipkart',
+                category: 'Fashion',
+                price: 1574,
+                mrp: 4499,
+                rating: 4.3,
+                badge: 'Trending',
+                image: buildProductSvg('Puma Court Sneakers', '#0284c7', '#1e3a8a', 'shoe'),
+                affiliateUrl: 'https://www.flipkart.com/search?q=puma+sneakers+men'
+            },
+            {
+                id: 'p-8',
+                title: 'Libas Women Floral Printed Cotton Kurta & Palazzo Set',
+                store: 'Myntra',
+                category: 'Fashion',
+                price: 899,
+                mrp: 2999,
+                rating: 4.5,
+                badge: 'Hot Deal',
+                image: buildProductSvg('Libas Kurta Set', '#e11d48', '#881337', 'kurti'),
+                affiliateUrl: 'https://www.myntra.com/libas-kurta-sets'
+            },
+            {
+                id: 'p-9',
+                title: 'Nike Downshifter 13 Men Road Running Sports Shoes',
+                store: 'Ajio',
+                category: 'Fashion',
+                price: 2362,
+                mrp: 4295,
+                rating: 4.5,
+                badge: 'Trending',
+                image: buildProductSvg('Nike Running Shoes', '#475569', '#090d16', 'shoe'),
+                affiliateUrl: 'https://www.ajio.com/s/nike-running-shoes'
+            },
+            {
+                id: 'p-10',
+                title: 'Women Quilted Crossbody Sling & Tote Handbag Combo (2-Pc)',
+                store: 'Meesho',
+                category: 'Fashion',
+                price: 299,
+                mrp: 1299,
+                rating: 4.1,
+                badge: 'Hot Deal',
+                image: buildProductSvg('2-Pc Designer Handbag', '#c026d3', '#581c87', 'bag'),
+                affiliateUrl: 'https://www.meesho.com/search?q=women%20handbag%20combo'
+            },
+            {
+                id: 'p-11',
+                title: 'Minimalist 10% Niacinamide Serum + SPF 50 Sunscreen Combo',
+                store: 'Amazon',
+                category: 'Beauty',
+                price: 699,
+                mrp: 1198,
+                rating: 4.5,
+                badge: 'Best Seller',
+                image: buildProductSvg('Niacinamide + SPF 50', '#059669', '#065f46', 'serum'),
+                affiliateUrl: 'https://www.amazon.in/s?k=minimalist+serum'
+            },
+            {
+                id: 'p-12',
+                title: 'Warm White LED Aesthetic Table Lamp & Room Decor Light',
+                store: 'Meesho',
+                category: 'Home',
+                price: 249,
+                mrp: 999,
+                rating: 4.3,
+                badge: 'Trending',
+                image: buildProductSvg('LED Table Lamp', '#7c3aed', '#4c1d95', 'lamp'),
+                affiliateUrl: 'https://www.meesho.com/search?q=led%20table%20lamp'
+            }
+        ];
+        // BAKED_PRODUCTS_END
+
+        // =========================================================================
+        // 3. STATE & STORAGE KEYS
+        // =========================================================================
+        const KEY_USER = 'db_web_user';
+        const KEY_PRODUCTS = 'db_web_products';
+        const KEY_WISHLIST = 'db_web_wishlist';
+        const KEY_CLICKS = 'db_web_clicks';
+        const KEY_ALERTS = 'db_web_alerts';
+        const KEY_OWNER_PIN = 'db_web_owner_pin';
+
+        let currentUser = null;
+        let pendingOtp = null;
+        let products = [];
+        let wishlistIds = [];
+        let clickCounts = {};
+        let alertsEnabled = true;
+        let ownerUnlocked = false;
+        let activeView = 'storefront';
+
+        let filters = {
+            store: 'All',
+            category: 'All',
+            search: '',
+            sort: 'featured'
+        };
+
+        function getOwnerPin() {
+            return localStorage.getItem(KEY_OWNER_PIN) || EMBEDDED_OWNER_PIN || '1234';
+        }
+
+        function initWebsiteState() {
+            try {
+                currentUser = JSON.parse(localStorage.getItem(KEY_USER) || 'null');
+            } catch (e) { currentUser = null; }
+
+            try {
+                const storedProducts = JSON.parse(localStorage.getItem(KEY_PRODUCTS) || 'null');
+                products = Array.isArray(storedProducts) && storedProducts.length > 0 ? storedProducts : [...DEFAULT_PRODUCTS];
+            } catch (e) { products = [...DEFAULT_PRODUCTS]; }
+
+            try {
+                wishlistIds = JSON.parse(localStorage.getItem(KEY_WISHLIST) || '[]');
+            } catch (e) { wishlistIds = []; }
+
+            try {
+                clickCounts = JSON.parse(localStorage.getItem(KEY_CLICKS) || '{}');
+            } catch (e) { clickCounts = {}; }
+
+            alertsEnabled = localStorage.getItem(KEY_ALERTS) !== 'false';
+            updateAlertsToggleUI();
+            updateWishlistCountUI();
+            setupOtpAutoAdvance();
+
+            // Close account dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                const wrapper = document.getElementById('accountDropdownWrapper');
+                if (wrapper && !wrapper.contains(e.target)) {
+                    closeAccountDropdown();
+                }
+            });
+
+            if (currentUser && (currentUser.phone || currentUser.email)) {
+                enterWebsiteAfterLogin();
+            } else {
+                showLoginGate();
+            }
+        }
+
+        // =========================================================================
+        // 4. FIRST-TIME FULL-PAGE WEBSITE OTP LOGIN (MOBILE OR GMAIL) & LOGOUT
+        // =========================================================================
+        function showLoginGate() {
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('mainWebsiteShell').classList.add('hidden');
+            backToCredentialsStep();
+        }
+
+        function enterWebsiteAfterLogin() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainWebsiteShell').classList.remove('hidden');
+            updateProfileUI();
+            renderStorefront();
+        }
+
+        function handleSendMobileOtp(e) {
+            e.preventDefault();
+            const phone = document.getElementById('loginPhoneInput').value.replace(/\D/g, '');
+            if (phone.length !== 10) {
+                showToast('Please enter a valid 10-digit mobile number', 'warning');
+                return;
+            }
+            const code = String(Math.floor(1000 + Math.random() * 9000));
+            pendingOtp = { method: 'mobile', phone, code };
+
+            document.getElementById('otpAlertIcon').className = 'fa-solid fa-comment-sms text-amber-600';
+            document.getElementById('otpAlertTitle').textContent = 'DealBazaar Verification SMS';
+            document.getElementById('displayTargetContact').textContent = `+91 ${phone}`;
+            document.getElementById('otpCodePreview').textContent = code;
+            document.getElementById('loginStepCredentials').classList.add('hidden');
+            document.getElementById('loginStepOtp').classList.remove('hidden');
+
+            const boxes = document.querySelectorAll('.otp-box');
+            boxes.forEach(b => b.value = '');
+            boxes[0]?.focus();
+
+            showToast(`SMS OTP ${code} sent to +91 ${phone}`, 'success');
+        }
+
+        function handleSendGmailOtp(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginGmailInput').value.trim().toLowerCase();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showToast('Please enter a valid Gmail address', 'warning');
+                return;
+            }
+            const code = String(Math.floor(1000 + Math.random() * 9000));
+            pendingOtp = { method: 'gmail', email, code };
+
+            document.getElementById('otpAlertIcon').className = 'fa-solid fa-envelope-open-text text-rose-600';
+            document.getElementById('otpAlertTitle').textContent = 'DealBazaar Gmail Inbox Alert';
+            document.getElementById('displayTargetContact').textContent = email;
+            document.getElementById('otpCodePreview').textContent = code;
+            document.getElementById('loginStepCredentials').classList.add('hidden');
+            document.getElementById('loginStepOtp').classList.remove('hidden');
+
+            const boxes = document.querySelectorAll('.otp-box');
+            boxes.forEach(b => b.value = '');
+            boxes[0]?.focus();
+
+            showToast(`Email OTP ${code} sent to ${email}`, 'success');
+        }
+
+        function openGoogleAccountModal() {
+            document.getElementById('googleAccountModal').classList.remove('hidden');
+        }
+
+        function closeGoogleAccountModal() {
+            document.getElementById('googleAccountModal').classList.add('hidden');
+        }
+
+        function formatNameFromEmail(email) {
+            const prefix = email.split('@')[0] || 'Deal Shopper';
+            return prefix
+                .replace(/[._-]+/g, ' ')
+                .replace(/\b\w/g, ch => ch.toUpperCase())
+                .slice(0, 28);
+        }
+
+        function completeGoogleQuickSignIn(name, email) {
+            currentUser = {
+                authMethod: 'gmail',
+                name: name || formatNameFromEmail(email),
+                email: email.trim().toLowerCase()
+            };
+            localStorage.setItem(KEY_USER, JSON.stringify(currentUser));
+            pendingOtp = null;
+            closeGoogleAccountModal();
+            showToast(`Signed in with Google (${currentUser.email})! 🎉`, 'success');
+            enterWebsiteAfterLogin();
+        }
+
+        function handleCustomGoogleAccountSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('customGoogleEmailInput').value.trim().toLowerCase();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showToast('Please enter a valid Gmail address', 'warning');
+                return;
+            }
+            document.getElementById('customGoogleEmailInput').value = '';
+            completeGoogleQuickSignIn(formatNameFromEmail(email), email);
+        }
+
+        function setupOtpAutoAdvance() {
+            const boxes = Array.from(document.querySelectorAll('.otp-box'));
+            boxes.forEach((box, idx) => {
+                box.addEventListener('input', (e) => {
+                    const val = e.target.value.replace(/\D/g, '');
+                    e.target.value = val.slice(0, 1);
+                    if (val && idx < boxes.length - 1) boxes[idx + 1].focus();
+                });
+                box.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && idx > 0) boxes[idx - 1].focus();
+                });
+            });
+        }
+
+        function autoFillOtpBoxes() {
+            if (!pendingOtp) return;
+            const digits = pendingOtp.code.split('');
+            document.querySelectorAll('.otp-box').forEach((box, idx) => {
+                box.value = digits[idx] || '';
+            });
+        }
+
+        function backToCredentialsStep() {
+            pendingOtp = null;
+            document.getElementById('loginStepOtp').classList.add('hidden');
+            document.getElementById('loginStepCredentials').classList.remove('hidden');
+        }
+
+        function handleVerifyLoginOtp(e) {
+            e.preventDefault();
+            if (!pendingOtp) return;
+            const entered = Array.from(document.querySelectorAll('.otp-box')).map(b => b.value).join('');
+            if (entered !== pendingOtp.code) {
+                showToast('Incorrect OTP code. Please try again.', 'warning');
+                return;
+            }
+
+            if (pendingOtp.method === 'gmail') {
+                currentUser = {
+                    authMethod: 'gmail',
+                    name: formatNameFromEmail(pendingOtp.email),
+                    email: pendingOtp.email
+                };
+            } else {
+                currentUser = {
+                    authMethod: 'mobile',
+                    name: 'Deal Shopper',
+                    phone: pendingOtp.phone
+                };
+            }
+
+            localStorage.setItem(KEY_USER, JSON.stringify(currentUser));
+            pendingOtp = null;
+            document.getElementById('loginPhoneInput').value = '';
+            document.getElementById('loginGmailInput').value = '';
+
+            showToast('Welcome to DealBazaar! 🎉', 'success');
+            enterWebsiteAfterLogin();
+        }
+
+        function handleUserLogout() {
+            localStorage.removeItem(KEY_USER);
+            currentUser = null;
+            ownerUnlocked = false;
+            navigateView('storefront');
+            showLoginGate();
+            showToast('You have been logged out', 'info');
+        }
+
+        // =========================================================================
+        // 5. FORMATTING, TOASTS & CLIPBOARD HELPERS
+        // =========================================================================
+        function formatPrice(n) {
+            return '₹' + Number(n).toLocaleString('en-IN');
+        }
+
+        function calcDiscount(mrp, price) {
+            if (!mrp || mrp <= price) return 0;
+            return Math.round(((mrp - price) / mrp) * 100);
+        }
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const el = document.createElement('div');
+            const style = type === 'success'
+                ? 'bg-emerald-600 text-white'
+                : type === 'warning'
+                    ? 'bg-amber-500 text-slate-950 font-bold'
+                    : 'bg-slate-900 text-white';
+            el.className = `pointer-events-auto px-4 py-3 rounded-2xl shadow-xl text-xs font-semibold flex items-center gap-2.5 transition-all duration-200 ${style}`;
+            el.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : type === 'warning' ? 'fa-triangle-exclamation' : 'fa-circle-info'}"></i><span>${msg}</span>`;
+            container.appendChild(el);
+            setTimeout(() => {
+                el.style.opacity = '0';
+                setTimeout(() => el.remove(), 220);
+            }, 2800);
+        }
+
+        function copyTextToClipboard(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showToast('Deal link & details copied to clipboard!', 'success');
+            } catch (e) {
+                showToast('Could not copy link', 'warning');
+            }
+            document.body.removeChild(ta);
+        }
+
+        // =========================================================================
+        // 6. VIEW NAVIGATION & ACCOUNT DROPDOWN
+        // =========================================================================
+        function toggleAccountDropdown() {
+            document.getElementById('accountDropdownMenu').classList.toggle('hidden');
+        }
+
+        function closeAccountDropdown() {
+            document.getElementById('accountDropdownMenu').classList.add('hidden');
+        }
+
+        function navigateView(view) {
+            activeView = view;
+            document.getElementById('viewStorefront').classList.toggle('hidden', view !== 'storefront');
+            document.getElementById('viewWishlist').classList.toggle('hidden', view !== 'wishlist');
+            document.getElementById('viewProfile').classList.toggle('hidden', view !== 'profile');
+
+            const btnStore = document.getElementById('navBtnStorefront');
+            const btnWish = document.getElementById('navBtnWishlist');
+            const btnProf = document.getElementById('navBtnProfile');
+
+            btnStore.className = view === 'storefront'
+                ? 'hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-bold text-indigo-600 bg-indigo-50 transition cursor-pointer'
+                : 'hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-100 transition cursor-pointer';
+
+            btnWish.className = view === 'wishlist'
+                ? 'relative inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-bold text-rose-600 bg-rose-50 transition cursor-pointer'
+                : 'relative inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-rose-50 hover:text-rose-600 transition cursor-pointer';
+
+            btnProf.className = view === 'profile'
+                ? 'inline-flex items-center gap-2.5 pl-2 pr-3.5 py-1.5 rounded-2xl border-2 border-indigo-600 bg-indigo-50/40 transition cursor-pointer'
+                : 'inline-flex items-center gap-2.5 pl-2 pr-3.5 py-1.5 rounded-2xl border border-slate-200 hover:border-indigo-300 bg-white hover:bg-slate-50 transition cursor-pointer';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (view === 'storefront') renderStorefront();
+            if (view === 'wishlist') renderWishlistPage();
+            if (view === 'profile') updateProfileUI();
+        }
+
+        // =========================================================================
+        // 7. STOREFRONT RENDERING (HEADER MEGA-STRIP, HERO, FILTERS, 4-COL GRID)
+        // =========================================================================
+        function renderHeaderMegaStrip() {
+            document.getElementById('headerStoreLinks').innerHTML = Object.keys(STORE_CONFIG).map(store => {
+                const cfg = STORE_CONFIG[store];
+                const isActive = filters.store === store && activeView === 'storefront';
+                return `
+                    <button onclick="navigateView('storefront'); setStoreFilter('${store}');" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold shrink-0 transition cursor-pointer ${isActive ? 'bg-slate-900 text-white shadow-xs' : 'text-slate-600 hover:bg-slate-100'}">
+                        <span class="w-2 h-2 rounded-full ${cfg.dot}"></span>
+                        <span>${cfg.label}</span>
+                    </button>
+                `;
+            }).join('');
+
+            document.getElementById('headerCategoryLinks').innerHTML = CATEGORIES.filter(c => c !== 'All').map(cat => {
+                const isActive = filters.category === cat && activeView === 'storefront';
+                return `
+                    <button onclick="navigateView('storefront'); setCategoryFilter('${cat}');" class="px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition cursor-pointer ${isActive ? 'bg-indigo-50 text-indigo-700' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'}">
+                        ${cat}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderHeroSection() {
+            const storeKeys = ['Amazon', 'Flipkart', 'Myntra', 'Ajio', 'Meesho'];
+            document.getElementById('heroStoreCards').innerHTML = storeKeys.map(store => {
+                const cfg = STORE_CONFIG[store];
+                const count = products.filter(p => p.store === store).length;
+                const active = filters.store === store;
+                return `
+                    <button onclick="setStoreFilter('${store}')" class="p-3 rounded-2xl bg-gradient-to-br ${cfg.cardAccent} border text-left hover:scale-[1.03] transition cursor-pointer ${active ? 'ring-2 ring-white' : ''}">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full ${cfg.dot}"></span>
+                            <span class="font-display font-extrabold text-xs text-white">${store}</span>
+                        </div>
+                        <span class="text-[11px] text-indigo-200 block mt-1">${count} Live Deals</span>
+                    </button>
+                `;
+            }).join('');
+
+            if (!products.length) return;
+            const best = [...products].sort((a, b) => calcDiscount(b.mrp, b.price) - calcDiscount(a.mrp, a.price))[0];
+            const off = calcDiscount(best.mrp, best.price);
+            const cfg = STORE_CONFIG[best.store] || STORE_CONFIG['Amazon'];
+
+            document.getElementById('heroSpotlightCard').innerHTML = `
+                <div class="bg-white text-slate-900 rounded-3xl p-5 shadow-2xl border border-white/20 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center gap-5">
+                    <div class="relative w-full sm:w-40 lg:w-full xl:w-44 aspect-square rounded-2xl overflow-hidden bg-slate-100 shrink-0 cursor-pointer" onclick="openQuickViewModal('${best.id}')">
+                        <img src="${best.image}" alt="${best.title}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                        <span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg text-[10px] ${cfg.badge}">${best.store}</span>
+                    </div>
+                    <div class="flex-1 space-y-2.5 w-full">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-0.5 rounded-md bg-rose-100 text-rose-700 text-[11px] font-extrabold uppercase">⚡ Deal of the Day</span>
+                            <span class="text-xs font-extrabold text-emerald-600">${off}% OFF</span>
+                        </div>
+                        <h3 onclick="openQuickViewModal('${best.id}')" class="font-display font-extrabold text-base text-slate-900 line-clamp-2 hover:text-indigo-600 cursor-pointer">
+                            ${best.title}
+                        </h3>
+                        <div class="flex items-baseline gap-2">
+                            <span class="font-display font-extrabold text-2xl text-slate-900">${formatPrice(best.price)}</span>
+                            <span class="text-xs text-slate-400 line-through">${formatPrice(best.mrp)}</span>
+                        </div>
+                        <button onclick="redirectToAffiliate('${best.id}')" class="w-full py-3 rounded-xl ${cfg.btn} text-xs flex items-center justify-center gap-2 shadow-sm cursor-pointer transition">
+                            <span>Grab Deal on ${best.store}</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCategoryBar() {
+            document.getElementById('categoryFilterBar').innerHTML = CATEGORIES.map(cat => {
+                const active = filters.category === cat;
+                return `
+                    <button onclick="setCategoryFilter('${cat}')" class="px-4 py-2 rounded-xl text-xs font-bold shrink-0 transition cursor-pointer ${active ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200/70'}">
+                        ${cat === 'All' ? 'All Categories' : cat}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function getFilteredProducts() {
+            let list = [...products];
+            if (filters.store !== 'All') list = list.filter(p => p.store === filters.store);
+            if (filters.category !== 'All') list = list.filter(p => p.category === filters.category);
+            if (filters.search.trim()) {
+                const q = filters.search.toLowerCase();
+                list = list.filter(p => p.title.toLowerCase().includes(q) || p.store.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+            }
+            if (filters.sort === 'discount') list.sort((a, b) => calcDiscount(b.mrp, b.price) - calcDiscount(a.mrp, a.price));
+            if (filters.sort === 'price-asc') list.sort((a, b) => a.price - b.price);
+            if (filters.sort === 'price-desc') list.sort((a, b) => b.price - a.price);
+            return list;
+        }
+
+        function buildProductCardHtml(p, isWishlistPage = false) {
+            const off = calcDiscount(p.mrp, p.price);
+            const cfg = STORE_CONFIG[p.store] || STORE_CONFIG['Amazon'];
+            const liked = wishlistIds.includes(p.id);
+
+            return `
+                <article class="group bg-white rounded-3xl border border-slate-200/90 hover:border-indigo-300 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                    <!-- Product Image Container -->
+                    <div class="relative aspect-[4/3] bg-slate-100 overflow-hidden">
+                        <img src="${p.image}" alt="${p.title}" onclick="openQuickViewModal('${p.id}')" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 cursor-pointer">
+                        
+                        <!-- Store Brand Badge -->
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg text-[11px] shadow-sm ${cfg.badge}">
+                            ${p.store}
+                        </span>
+
+                        <!-- Top-Right Action Icons: Wishlist & Share -->
+                        <div class="absolute top-3 right-3 flex flex-col gap-1.5">
+                            <button onclick="toggleLikeProduct('${p.id}', this)" title="Save to Wishlist" class="w-8 h-8 rounded-full bg-white/95 hover:bg-white shadow-sm flex items-center justify-center cursor-pointer transition">
+                                <i class="${liked ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart text-slate-600'} text-xs"></i>
+                            </button>
+                            <button onclick="shareDealLink('${p.id}')" title="Share Deal" class="w-8 h-8 rounded-full bg-white/95 hover:bg-white shadow-sm text-slate-600 hover:text-indigo-600 flex items-center justify-center cursor-pointer transition">
+                                <i class="fa-solid fa-share-nodes text-xs"></i>
+                            </button>
+                        </div>
+
+                        ${p.badge ? `<span class="absolute bottom-3 left-3 px-2 py-0.5 rounded-md bg-slate-900/85 text-amber-300 text-[10px] font-bold">${p.badge}</span>` : ''}
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                        <div class="space-y-1.5 cursor-pointer" onclick="openQuickViewModal('${p.id}')">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="font-semibold text-slate-400">${p.category}</span>
+                                <span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 font-bold text-[11px]">
+                                    <i class="fa-solid fa-star text-amber-400 mr-0.5"></i>${p.rating || 4.4}
+                                </span>
+                            </div>
+                            <h3 class="font-display font-bold text-sm text-slate-900 group-hover:text-indigo-600 line-clamp-2 leading-snug transition">
+                                ${p.title}
+                            </h3>
+                        </div>
+
+                        <div class="space-y-3 pt-2 border-t border-slate-100">
+                            <div class="flex items-baseline gap-2 flex-wrap">
+                                <span class="font-display font-extrabold text-lg text-slate-900">${formatPrice(p.price)}</span>
+                                <span class="text-xs text-slate-400 line-through">${formatPrice(p.mrp)}</span>
+                                ${off > 0 ? `<span class="text-xs font-extrabold text-emerald-600">${off}% OFF</span>` : ''}
+                            </div>
+
+                            ${isWishlistPage ? `
+                                <div class="flex items-center gap-2">
+                                    <button onclick="redirectToAffiliate('${p.id}')" class="flex-1 py-2.5 rounded-xl ${cfg.btn} text-xs flex items-center justify-center gap-1.5 cursor-pointer transition">
+                                        <span>Buy on ${p.store}</span>
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                    </button>
+                                    <button onclick="toggleLikeProduct('${p.id}')" class="px-3 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold cursor-pointer transition">
+                                        Remove
+                                    </button>
+                                </div>
+                            ` : `
+                                <button onclick="redirectToAffiliate('${p.id}')" class="w-full py-2.5 rounded-xl ${cfg.btn} text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer transition">
+                                    <span>Buy on ${p.store}</span>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                </button>
+                            `}
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderStorefront() {
+            renderHeaderMegaStrip();
+            renderHeroSection();
+            renderCategoryBar();
+
+            const list = getFilteredProducts();
+            const hasFilters = filters.store !== 'All' || filters.category !== 'All' || filters.search.trim() !== '';
+
+            document.getElementById('storefrontResultsCount').textContent = `Showing ${list.length} deal${list.length === 1 ? '' : 's'}`;
+            document.getElementById('storefrontSectionTitle').textContent = filters.store === 'All'
+                ? 'Trending Deals Across All Stores'
+                : `${filters.store} Verified Deals`;
+            document.getElementById('clearFiltersBtn').classList.toggle('hidden', !hasFilters);
+
+            const grid = document.getElementById('storefrontProductGrid');
+            const empty = document.getElementById('storefrontEmptyState');
+
+            if (!list.length) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = list.map(p => buildProductCardHtml(p, false)).join('');
+            }
+        }
+
+        function setStoreFilter(store) {
+            filters.store = store;
+            renderStorefront();
+        }
+
+        function setCategoryFilter(category) {
+            filters.category = category;
+            renderStorefront();
+        }
+
+        function onSearchInput(val) {
+            filters.search = val;
+            document.getElementById('desktopSearchInput').value = val;
+            document.getElementById('mobileSearchInput').value = val;
+            const hasText = val.trim().length > 0;
+            document.getElementById('desktopSearchClear').classList.toggle('hidden', !hasText);
+            document.getElementById('mobileSearchClear').classList.toggle('hidden', !hasText);
+            if (activeView !== 'storefront') navigateView('storefront');
+            else renderStorefront();
+        }
+
+        function clearSearchInput() {
+            onSearchInput('');
+        }
+
+        function onSortChange(val) {
+            filters.sort = val;
+            renderStorefront();
+        }
+
+        function resetAllFilters() {
+            filters = { store: 'All', category: 'All', search: '', sort: 'featured' };
+            document.getElementById('desktopSearchInput').value = '';
+            document.getElementById('mobileSearchInput').value = '';
+            document.getElementById('desktopSearchClear').classList.add('hidden');
+            document.getElementById('mobileSearchClear').classList.add('hidden');
+            document.getElementById('sortSelect').value = 'featured';
+            renderStorefront();
+        }
+
+        // =========================================================================
+        // 8. WISHLIST LOGIC
+        // =========================================================================
+        function toggleLikeProduct(id, btnEl) {
+            if (btnEl) {
+                btnEl.classList.remove('animate-heart-beat');
+                void btnEl.offsetWidth;
+                btnEl.classList.add('animate-heart-beat');
+            }
+
+            if (wishlistIds.includes(id)) {
+                wishlistIds = wishlistIds.filter(item => item !== id);
+                showToast('Removed from Wishlist', 'info');
+            } else {
+                wishlistIds.push(id);
+                showToast('Saved to Wishlist ❤️', 'success');
+            }
+            localStorage.setItem(KEY_WISHLIST, JSON.stringify(wishlistIds));
+            updateWishlistCountUI();
+
+            if (activeView === 'storefront') renderStorefront();
+            if (activeView === 'wishlist') renderWishlistPage();
+            if (activeView === 'profile') updateProfileUI();
+        }
+
+        function clearAllWishlist() {
+            wishlistIds = [];
+            localStorage.setItem(KEY_WISHLIST, JSON.stringify(wishlistIds));
+            updateWishlistCountUI();
+            renderWishlistPage();
+            updateProfileUI();
+            showToast('Saved wishlist cleared', 'info');
+        }
+
+        function updateWishlistCountUI() {
+            document.getElementById('headerWishlistCount').textContent = wishlistIds.length;
+        }
+
+        function renderWishlistPage() {
+            const saved = products.filter(p => wishlistIds.includes(p.id));
+            document.getElementById('wishlistPageSubtitle').textContent = `${saved.length} deal${saved.length === 1 ? '' : 's'} saved for later`;
+            document.getElementById('wishlistPageClearBtn').classList.toggle('hidden', saved.length === 0);
+
+            const grid = document.getElementById('wishlistProductGrid');
+            const empty = document.getElementById('wishlistEmptyState');
+            if (!saved.length) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                grid.innerHTML = saved.map(p => buildProductCardHtml(p, true)).join('');
+            }
+        }
+
+        // =========================================================================
+        // 9. PRODUCT QUICK-VIEW MODAL & AFFILIATE REDIRECT
+        // =========================================================================
+        function openQuickViewModal(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+            const off = calcDiscount(p.mrp, p.price);
+            const cfg = STORE_CONFIG[p.store] || STORE_CONFIG['Amazon'];
+            const liked = wishlistIds.includes(p.id);
+            const savings = Math.max(0, p.mrp - p.price);
+
+            document.getElementById('quickViewContent').innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-12">
+                    <div class="md:col-span-5 relative bg-slate-100 aspect-square md:aspect-auto">
+                        <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-xl text-xs shadow-sm ${cfg.badge}">${p.store}</span>
+                    </div>
+                    <div class="md:col-span-7 p-6 sm:p-7 flex flex-col justify-between space-y-5">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 text-xs font-bold">${p.category}</span>
+                                <button onclick="closeQuickViewModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center cursor-pointer">
+                                    <i class="fa-solid fa-xmark text-xs"></i>
+                                </button>
+                            </div>
+                            <h3 class="font-display font-extrabold text-xl text-slate-900 leading-snug">${p.title}</h3>
+                            <div class="flex items-center gap-3 text-xs">
+                                <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold">
+                                    <i class="fa-solid fa-star text-amber-400 mr-1"></i>${p.rating || 4.4} Store Rating
+                                </span>
+                                ${p.badge ? `<span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 font-bold">${p.badge}</span>` : ''}
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                            <span class="text-xs font-semibold text-slate-500">Verified Deal Price on ${p.store}</span>
+                            <div class="flex items-baseline gap-2.5 flex-wrap">
+                                <span class="font-display font-extrabold text-3xl text-slate-900">${formatPrice(p.price)}</span>
+                                <span class="text-sm text-slate-400 line-through">${formatPrice(p.mrp)}</span>
+                                ${off > 0 ? `<span class="px-2.5 py-0.5 rounded-lg bg-emerald-600 text-white text-xs font-extrabold">${off}% OFF</span>` : ''}
+                            </div>
+                            ${savings > 0 ? `<p class="text-xs font-bold text-emerald-700">You save ${formatPrice(savings)} on this deal</p>` : ''}
+                        </div>
+
+                        <div class="flex items-center gap-2.5">
+                            <button onclick="toggleLikeProduct('${p.id}'); openQuickViewModal('${p.id}');" title="Wishlist" class="w-12 h-12 rounded-2xl border border-slate-300 hover:bg-slate-50 flex items-center justify-center text-lg cursor-pointer">
+                                <i class="${liked ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart text-slate-600'}"></i>
+                            </button>
+                            <button onclick="shareDealLink('${p.id}')" title="Share Deal" class="w-12 h-12 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 flex items-center justify-center text-lg cursor-pointer">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </button>
+                            <button onclick="redirectToAffiliate('${p.id}')" class="flex-1 h-12 rounded-2xl ${cfg.btn} text-sm flex items-center justify-center gap-2 shadow-md cursor-pointer transition">
+                                <span>Buy on ${p.store}</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('productQuickViewModal').classList.remove('hidden');
+        }
+
+        function closeQuickViewModal() {
+            document.getElementById('productQuickViewModal').classList.add('hidden');
+        }
+
+        function redirectToAffiliate(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+            clickCounts[id] = (clickCounts[id] || 0) + 1;
+            localStorage.setItem(KEY_CLICKS, JSON.stringify(clickCounts));
+            showToast(`Redirecting to ${p.store} official store...`, 'info');
+            window.open(p.affiliateUrl, '_blank', 'noopener,noreferrer');
+        }
+
+        function shareDealLink(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+            const off = calcDiscount(p.mrp, p.price);
+            const text = `🔥 ${p.store} Verified Deal (${off}% OFF)!\n${p.title}\nDeal Price: ${formatPrice(p.price)} (MRP: ${formatPrice(p.mrp)})\nBuy Here: ${p.affiliateUrl}`;
+            copyTextToClipboard(text);
+        }
+
+        // =========================================================================
+        // 10. PROFILE & SETTINGS ACTIONS
+        // =========================================================================
+        function updateProfileUI() {
+            if (!currentUser) return;
+            const name = currentUser.name || 'Deal Shopper';
+            const initial = name.trim().charAt(0).toUpperCase();
+            const isGmail = currentUser.authMethod === 'gmail' || Boolean(currentUser.email);
+            const contactDisplay = isGmail && currentUser.email ? currentUser.email : `+91 ${currentUser.phone}`;
+
+            document.getElementById('headerAvatarCircle').textContent = initial;
+            document.getElementById('headerUserName').textContent = name;
+            document.getElementById('dropdownUserName').textContent = name;
+            document.getElementById('dropdownUserContact').textContent = contactDisplay;
+
+            document.getElementById('profilePageAvatar').textContent = initial;
+            document.getElementById('profilePageName').textContent = name;
+
+            const badgeEl = document.getElementById('profileVerifiedBadge');
+            const contactEl = document.getElementById('profilePageContact');
+            if (isGmail && currentUser.email) {
+                badgeEl.className = 'px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 text-xs font-extrabold';
+                badgeEl.textContent = '✓ Verified Gmail Account';
+                contactEl.textContent = currentUser.email;
+            } else {
+                badgeEl.className = 'px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-extrabold';
+                badgeEl.textContent = '✓ Verified Mobile Account';
+                contactEl.textContent = `+91 ${currentUser.phone}`;
+            }
+
+            document.getElementById('profilePageWishlistCount').textContent = wishlistIds.length;
+        }
+
+        function openEditNameModal() {
+            document.getElementById('editNameInput').value = currentUser?.name || '';
+            document.getElementById('editNameModal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('editNameInput').focus(), 100);
+        }
+
+        function closeEditNameModal() {
+            document.getElementById('editNameModal').classList.add('hidden');
+        }
+
+        function saveNewDisplayName(e) {
+            e.preventDefault();
+            const val = document.getElementById('editNameInput').value.trim();
+            if (!val || !currentUser) return;
+            currentUser.name = val;
+            localStorage.setItem(KEY_USER, JSON.stringify(currentUser));
+            updateProfileUI();
+            closeEditNameModal();
+            showToast('Display name updated!', 'success');
+        }
+
+        function toggleDealAlerts() {
+            alertsEnabled = !alertsEnabled;
+            localStorage.setItem(KEY_ALERTS, String(alertsEnabled));
+            updateAlertsToggleUI();
+            showToast(alertsEnabled ? 'Deal price-drop alerts enabled' : 'Deal price-drop alerts muted', 'info');
+        }
+
+        function updateAlertsToggleUI() {
+            const btn = document.getElementById('alertsToggleBtn');
+            const knob = document.getElementById('alertsToggleKnob');
+            if (!btn || !knob) return;
+            btn.setAttribute('aria-checked', String(alertsEnabled));
+            if (alertsEnabled) {
+                btn.classList.remove('bg-slate-300');
+                btn.classList.add('bg-emerald-500');
+                knob.classList.remove('translate-x-0');
+                knob.classList.add('translate-x-5');
+            } else {
+                btn.classList.add('bg-slate-300');
+                btn.classList.remove('bg-emerald-500');
+                knob.classList.add('translate-x-0');
+                knob.classList.remove('translate-x-5');
+            }
+        }
+
+        // =========================================================================
+        // 11. OWNER-ONLY PIN-PROTECTED STORE MANAGER
+        // =========================================================================
+        function openOwnerManagerModal() {
+            document.getElementById('ownerManagerModal').classList.remove('hidden');
+            if (ownerUnlocked) {
+                document.getElementById('ownerPinGateView').classList.add('hidden');
+                document.getElementById('ownerUnlockedView').classList.remove('hidden');
+                renderAdminCatalogList();
+                renderStoreAnalytics();
+            } else {
+                document.getElementById('ownerPinGateView').classList.remove('hidden');
+                document.getElementById('ownerUnlockedView').classList.add('hidden');
+                setTimeout(() => document.getElementById('ownerPinInput').focus(), 100);
+            }
+        }
+
+        function closeOwnerManagerModal() {
+            document.getElementById('ownerManagerModal').classList.add('hidden');
+        }
+
+        function unlockOwnerManager(e) {
+            e.preventDefault();
+            const pin = document.getElementById('ownerPinInput').value.trim();
+            if (pin !== getOwnerPin()) {
+                showToast('Incorrect Owner PIN!', 'warning');
+                document.getElementById('ownerPinInput').value = '';
+                return;
+            }
+            ownerUnlocked = true;
+            document.getElementById('ownerPinInput').value = '';
+            document.getElementById('ownerPinGateView').classList.add('hidden');
+            document.getElementById('ownerUnlockedView').classList.remove('hidden');
+            renderAdminCatalogList();
+            renderStoreAnalytics();
+            showToast('Owner Store Manager Unlocked', 'success');
+        }
+
+        function lockOwnerManager() {
+            ownerUnlocked = false;
+            closeOwnerManagerModal();
+            showToast('Owner Store Manager Locked', 'info');
+        }
+
+        function switchAdminSubTab(tab) {
+            const views = {
+                add: 'adminSubViewAdd',
+                manage: 'adminSubViewManage',
+                analytics: 'adminSubViewAnalytics',
+                export: 'adminSubViewExport'
+            };
+            const btns = {
+                add: 'adminTabBtnAdd',
+                manage: 'adminTabBtnManage',
+                analytics: 'adminTabBtnAnalytics',
+                export: 'adminTabBtnExport'
+            };
+
+            Object.keys(views).forEach(key => {
+                document.getElementById(views[key]).classList.toggle('hidden', key !== tab);
+                document.getElementById(btns[key]).className = key === tab
+                    ? 'px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold cursor-pointer'
+                    : 'px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-bold cursor-pointer';
+            });
+
+            if (tab === 'manage') renderAdminCatalogList();
+            if (tab === 'analytics') renderStoreAnalytics();
+        }
+
+        function processSelectedImageFile(event) {
+            const file = event.target.files?.[0];
+            if (!file || !file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const img = new Image();
+                img.onload = function() {
+                    const maxDim = 600;
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > maxDim) {
+                        h = Math.round((h * maxDim) / w);
+                        w = maxDim;
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    setAdminImagePreview(canvas.toDataURL('image/jpeg', 0.82));
+                    showToast('Product image uploaded & compressed!', 'success');
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function setAdminImagePreview(dataUrl) {
+            document.getElementById('formImageBase64').value = dataUrl || '';
+            const preview = document.getElementById('formImagePreview');
+            const placeholder = document.getElementById('formImagePlaceholder');
+            const label = document.getElementById('formUploadBtnLabel');
+
+            if (dataUrl) {
+                preview.src = dataUrl;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                label.textContent = 'Change Product Image';
+            } else {
+                preview.src = '';
+                preview.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+                label.textContent = 'Choose Product Image File';
+            }
+        }
+
+        function resetAdminProductForm() {
+            document.getElementById('productEditorForm').reset();
+            document.getElementById('formProductId').value = '';
+            document.getElementById('formRating').value = '4.5';
+            setAdminImagePreview('');
+            document.getElementById('formSubmitBtn').textContent = 'Publish Deal to Website';
+        }
+
+        function saveAffiliateProduct(e) {
+            e.preventDefault();
+            const id = document.getElementById('formProductId').value;
+            const title = document.getElementById('formTitle').value.trim();
+            const store = document.getElementById('formStore').value;
+            const category = document.getElementById('formCategory').value;
+            const price = Number(document.getElementById('formPrice').value);
+            const mrp = Number(document.getElementById('formMrp').value);
+            const rating = Number(document.getElementById('formRating').value) || 4.5;
+            const badge = document.getElementById('formBadge').value;
+            const affiliateUrl = document.getElementById('formAffiliateUrl').value.trim();
+            const image = document.getElementById('formImageBase64').value;
+
+            if (!image) {
+                showToast('Please select a product image file first!', 'warning');
+                return;
+            }
+            if (price > mrp) {
+                showToast('Offer price cannot exceed original MRP', 'warning');
+                return;
+            }
+
+            if (id) {
+                const idx = products.findIndex(item => item.id === id);
+                if (idx !== -1) {
+                    products[idx] = { ...products[idx], title, store, category, price, mrp, rating, badge, affiliateUrl, image };
+                    showToast('Product deal updated!', 'success');
+                }
+            } else {
+                products.unshift({
+                    id: 'p-' + Date.now(),
+                    title,
+                    store,
+                    category,
+                    price,
+                    mrp,
+                    rating,
+                    badge,
+                    image,
+                    affiliateUrl
+                });
+                showToast('New affiliate deal published live!', 'success');
+            }
+
+            localStorage.setItem(KEY_PRODUCTS, JSON.stringify(products));
+            resetAdminProductForm();
+            renderStorefront();
+            switchAdminSubTab('manage');
+        }
+
+        function editAdminProduct(id) {
+            const p = products.find(item => item.id === id);
+            if (!p) return;
+            document.getElementById('formProductId').value = p.id;
+            document.getElementById('formTitle').value = p.title;
+            document.getElementById('formStore').value = p.store;
+            document.getElementById('formCategory').value = p.category;
+            document.getElementById('formPrice').value = p.price;
+            document.getElementById('formMrp').value = p.mrp;
+            document.getElementById('formRating').value = p.rating || 4.5;
+            document.getElementById('formBadge').value = p.badge || '';
+            document.getElementById('formAffiliateUrl').value = p.affiliateUrl;
+            setAdminImagePreview(p.image);
+            document.getElementById('formSubmitBtn').textContent = 'Save Updated Deal';
+            switchAdminSubTab('add');
+        }
+
+        function deleteAdminProduct(id) {
+            products = products.filter(item => item.id !== id);
+            localStorage.setItem(KEY_PRODUCTS, JSON.stringify(products));
+            renderStorefront();
+            renderAdminCatalogList();
+            showToast('Product deleted from catalog', 'info');
+        }
+
+        function renderAdminCatalogList() {
+            document.getElementById('adminTotalProductsCount').textContent = products.length;
+            document.getElementById('adminCatalogList').innerHTML = products.map(p => {
+                const clicks = clickCounts[p.id] || 0;
+                const cfg = STORE_CONFIG[p.store] || STORE_CONFIG['Amazon'];
+                return `
+                    <div class="bg-white p-3.5 rounded-2xl border border-slate-200 flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <img src="${p.image}" class="w-14 h-14 rounded-xl object-cover bg-slate-100 shrink-0">
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2 py-0.5 rounded text-[10px] ${cfg.badge}">${p.store}</span>
+                                    <span class="text-xs font-bold text-indigo-600">${clicks} clicks</span>
+                                </div>
+                                <p class="font-bold text-sm text-slate-900 truncate mt-0.5">${p.title}</p>
+                                <p class="text-xs font-extrabold text-emerald-700">${formatPrice(p.price)} <span class="text-slate-400 font-normal line-through">${formatPrice(p.mrp)}</span></p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button onclick="editAdminProduct('${p.id}')" title="Edit" class="w-9 h-9 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs cursor-pointer">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button onclick="deleteAdminProduct('${p.id}')" title="Delete" class="w-9 h-9 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center text-xs cursor-pointer">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderStoreAnalytics() {
+            const stores = ['Amazon', 'Flipkart', 'Myntra', 'Ajio', 'Meesho'];
+            document.getElementById('storeAnalyticsGrid').innerHTML = stores.map(store => {
+                const cfg = STORE_CONFIG[store];
+                const storeProducts = products.filter(p => p.store === store);
+                const totalClicks = storeProducts.reduce((acc, p) => acc + (clickCounts[p.id] || 0), 0);
+                return `
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full ${cfg.dot}"></span>
+                            <span class="font-display font-bold text-xs text-slate-700">${store}</span>
+                        </div>
+                        <p class="font-display font-extrabold text-2xl text-slate-900">${totalClicks}</p>
+                        <p class="text-[11px] text-slate-500">${storeProducts.length} active deals</p>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function changeOwnerPin(e) {
+            e.preventDefault();
+            const pin = document.getElementById('newOwnerPinInput').value.trim();
+            if (pin.length < 4) return;
+            localStorage.setItem(KEY_OWNER_PIN, pin);
+            document.getElementById('newOwnerPinInput').value = '';
+            showToast('Owner PIN updated successfully!', 'success');
+        }
+
+        function restoreDemoProducts() {
+            products = [...DEFAULT_PRODUCTS];
+            localStorage.setItem(KEY_PRODUCTS, JSON.stringify(products));
+            renderStorefront();
+            renderAdminCatalogList();
+            renderStoreAnalytics();
+            showToast('12 demo products restored', 'success');
+        }
+
+        function downloadUpdatedWebsite() {
+            try {
+                const serialized = `// BAKED_PRODUCTS_START\n        const EMBEDDED_OWNER_PIN = ${JSON.stringify(getOwnerPin())};\n        const DEFAULT_PRODUCTS = ${JSON.stringify(products, null, 8)};\n        // BAKED_PRODUCTS_END`;
+                let html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+                html = html.replace(/\/\/ BAKED_PRODUCTS_START[\s\S]*?\/\/ BAKED_PRODUCTS_END/, serialized);
+
+                const blob = new Blob([html], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'index.html';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('Updated website (index.html) downloaded!', 'success');
+            } catch (err) {
+                showToast('Export failed', 'warning');
+            }
+        }
+
+        // =========================================================================
+        // 12. BOOT WEBSITE
+        // =========================================================================
+        window.addEventListener('DOMContentLoaded', initWebsiteState);
+    </script>
+</body>
+</html>
